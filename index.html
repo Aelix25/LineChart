@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <style>.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+ 
+}
+.cursor{
+cursor:pointer
+}</style>
+<script>
+  function rand(){
+    return Math.floor(Math.random() * 40) + 5;
+  }
+  // function dataarray(count){
+  //   var data=[];
+  //   for(var i=count;i>0;i--){
+  //     data.push({ x: i, y:rand() });
+  //   }
+  //   return data;
+  // }
+
+  function pushdata(count,array){
+    arr_len=array.length;
+    for(var i=arr_len+1;i<=arr_len+count;i++){
+       array.push({ x: i, y:rand()});
+    }
+    return array;
+  }
+   function initial_push(array){
+     return array;
+     console.log(array);
+   }
+var array4 = [];
+var array3 = [];
+var array2 = [];
+var array1 = [];
+
+var array4_h = [];
+var array3_h = [];
+var array2_h = [];
+var array1_h = [];
+
+var array4_pc = [];
+var array3_pc = [];
+var array2_pc = [];
+var array1_pc = [];
+
+var array4_aq = [];
+var array3_aq = [];
+var array2_aq = [];
+var array1_aq = [];
+
+var array4_t = [];
+var array3_t = [];
+var array2_t = [];
+var array1_t = [];
+
+var titlevar="Daily Temperature";
+var ytitle="Temperature";
+var yformat="# °C";
+var ysuff= " °C";
+var ymax=80;
+  function datapoints(names, color, opc, dp){
+   return{ showInLegend: true,  
+    markerBorderColor: "#ccc",
+    markerBorderThickness: 0,
+    yValueFormatString: yformat,
+    xValueFormatString: "",
+    name: names,
+    type: "splineArea",
+    color:color,
+    fillOpacity: opc,
+    dataPoints: dp}
+  };
+
+
+
+  
+
+    // array1=pushdata(15000,array1);
+    // array2=pushdata(15000,array2);
+    // array3=pushdata(15000,array3);
+    // array4=pushdata(15000,array4);
+    
+    // array1_h=pushdata(15000,array1_h);
+    // array2_h=pushdata(15000,array2_h);
+    // array3_h=pushdata(15000,array3_h);
+    // array4_h=pushdata(15000,array4_h);
+    // //HUMIDITY\
+    // array1_t=pushdata(15000,array1_t);
+    // array2_t=pushdata(15000,array2_t);
+    // array3_t=pushdata(15000,array3_t);
+    // array4_t=pushdata(15000,array4_t);
+    // //AIR QUALITY
+    // array1_aq=pushdata(15000,array1_aq);
+    // array2_aq=pushdata(15000,array2_aq);
+    // array3_aq=pushdata(15000,array3_aq);
+    // array4_aq=pushdata(15000,array4_aq);
+    // //PAXCOUNTER
+    // array1_pc=pushdata(15000,array1_pc);
+    // array2_pc=pushdata(15000,array2_pc);
+    // array3_pc=pushdata(15000,array3_pc);
+    // array4_pc=pushdata(15000,array4_pc);
+
+  function chart(val=0){
+  var data1 = datapoints("Lopy1","#555",0.7,array1);
+  var data2 = datapoints("Lopy2","#888",0.5,array2);
+  var data3 = datapoints("Lopy3","#aaa",0.3,array3);
+  var data4 = datapoints("Lopy4","#eee",0.1,array4);
+ var data=[];
+ if(val==0){
+ chartdata=[data1,data2,data3,data4];
+}else if(val==1){
+ chartdata=[data1];
+}else if(val==2){
+ chartdata=[data2];
+}else if(val==3){
+ chartdata=[data3];
+}else if(val==4){
+ chartdata=[data4];
+}
+
+
+
+
+var options = {
+  animationEnabled: false,  
+  animationDuration: 200,
+  title:{
+    text: titlevar
+  },
+  axisX: { 
+
+ 
+
+        gridThickness: 1,
+        gridColor: "white",
+    stripLines:[
+      {                
+        startValue: array2.length-50,
+        endValue: array2.length,                
+        color:"#eeeeee"  ,
+        opacity: .3,  
+        label: "Last 50 values" , 
+        labelPlacement: "outside" ,  
+        labelPlacement: "inside" , 
+        labelMaxWidth: 80, 
+        labelBackgroundColor: "transparent", 
+        labelFontColor:"#ccc", 
+        labelFontWeight:"bold", 
+        labelFontSize:"20",           
+      },{                
+        startValue: array2.length-100,
+        endValue: array2.length-50,                
+        color:"#999999",  
+        opacity: .3,   
+        label: "Last 100 values" , 
+        labelPlacement: "inside" , 
+        labelMaxWidth: 80, 
+        labelBackgroundColor: "transparent", 
+        labelFontColor:"#ccc", 
+        labelFontWeight:"bold", 
+        labelFontSize:"20",                
+      },{                
+        startValue: array2.length-150,
+        endValue: array2.length-100,                
+        color:"#555555",
+        opacity: .3,    
+        label: "Last 150 values" , 
+        labelPlacement: "inside" , 
+        labelMaxWidth: 80, 
+        labelBackgroundColor: "transparent", 
+        labelFontColor:"#ccc", 
+        labelFontWeight:"bold", 
+        labelFontSize:"20",                
+      }
+      ],
+    valueFormatString: "#",
+    crosshair: {
+      enabled: true,
+      snapToDataPoint: true
+    },
+viewportMinimum: array2.length-150,
+   viewportMaximum: array2.length,
+  },
+  axisY: {
+ stripLines:[
+      {                
+        startValue: 0 ,
+        endValue: 20,                
+        color:"#A3D4E1"  ,
+        opacity: .9,            
+      },{                
+        startValue: 20,
+        endValue: 30,                
+        color:"#dfb24a",  
+        opacity: .9,                
+      },{                
+        startValue: 30,
+        endValue: 50,                
+        color:"#d04b18",
+        opacity: .9,                 
+      }
+      ],
+
+ 
+
+    maximum: ymax,
+    title: ytitle,
+    prefix: "",
+    suffix:ysuff,
+    crosshair: {
+      enabled: true,
+      snapToDataPoint: true,
+      labelFormatter: function(e) {
+        return "$" + CanvasJS.formatNumber(e.value, "##0.00");
+      }
+    }
+  },
+  toolTip: {
+    shared: true
+  },
+  legend: {
+    cursor: "pointer",
+  },
+
+ 
+
+  exportEnabled: true,
+  zoomEnabled: true, 
+ zoomType: "x",
+ theme:"dark2",
+ data: chartdata
+};
+var timeoutvar;
+var device_id=0;
+$("#chartContainer").CanvasJSChart(options);
+  }
+  function select_data(type){
+    if(type==1){
+        titlevar="Temperature";
+        ytitle="Temperature";
+        yformat="# °C";
+        ysuff= " °C";
+        ymax= 60;
+       array1=array1_t.slice();
+       array2=array2_t.slice();
+       array3=array3_t.slice();
+       array4=array4_t.slice();
+      }
+      if(type==2){
+        titlevar="Humidity";
+        
+        ytitle="Humidity";
+        yformat = "# %";
+        ysuff= " %";
+        ymax= 100;
+       array1=array1_h.slice();
+       array2=array2_h.slice();
+       array3=array3_h.slice();
+       array4=array4_h.slice();
+      }
+      if(type==3){
+        titlevar="Air Quality";
+        ytitle="Air Quality";
+        yformat = "# %";
+        ysuff= " %";
+        ymax= 100;
+       array1=array1_aq.slice();
+       array2=array2_aq.slice();
+       array3=array3_aq.slice();
+       array4=array4_aq.slice();
+      }
+      if(type==4){
+        titlevar="Pax Counter";
+        ytitle="Pax Counter";
+        yformat = "#";
+        ysuff= "";
+        ymax= 50;
+       array1=array1_pc.slice();
+       array2=array2_pc.slice();
+       array3=array3_pc.slice(); 
+       array4=array4_pc.slice();
+      }
+
+  }
+  var total=0;
+    var arr_minmax=[];
+  function minmax(arr){
+      arr_minmax=[];
+    for(j in arr){
+        arr_minmax.push(arr[j].y);
+        total+=arr[j].y;
+    }
+  }
+  get_data();
+  function get_data(){
+    $.getJSON("data/test.json", function(data){ 
+          array1_h=initial_push(data.data1.h_g);
+          array2_h=initial_push(data.data2.h_g);
+          array3_h=initial_push(data.data3.h_g);
+          array4_h=initial_push(data.data4.h_g);
+          array1_t=initial_push(data.data1.t_g);
+          array2_t=initial_push(data.data2.t_g);
+          array3_t=initial_push(data.data3.t_g);
+          array4_t=initial_push(data.data4.t_g);
+          array1_aq=initial_push(data.data1.aq_g);
+          array2_aq=initial_push(data.data2.aq_g);
+          array3_aq=initial_push(data.data3.aq_g);
+          array4_aq=initial_push(data.data4.aq_g);
+          array1_pc=initial_push(data.data1.pc_g);
+          array2_pc=initial_push(data.data2.pc_g);
+          array3_pc=initial_push(data.data3.pc_g);
+          array4_pc=initial_push(data.data4.pc_g);
+        console.log(array2_t[0]);
+        }).fail(function(){
+            console.log("An error has occurred.");
+        });
+  setTimeout(get_data,2000);
+  }
+
+  function reloaddata(device){
+      
+    array1=pushdata(1,array1);
+    array2=pushdata(1,array2);
+    array3=pushdata(1,array3);
+    array4=pushdata(1,array4);
+    
+    array1_h=pushdata(1,array1_h);
+    array2_h=pushdata(1,array2_h);
+    array3_h=pushdata(1,array3_h);
+    array4_h=pushdata(1,array4_h);
+    //HUMIDITY
+    array1_t=pushdata(1,array1_t);
+    array2_t=pushdata(1,array2_t);
+    array3_t=pushdata(1,array3_t);
+    array4_t=pushdata(1,array4_t);
+    //AIR QUALITY
+    array1_aq=pushdata(1,array1_aq);
+    array2_aq=pushdata(1,array2_aq);
+    array3_aq=pushdata(1,array3_aq);
+    array4_aq=pushdata(1,array4_aq);
+    //PAXCOUNTER
+    array1_pc=pushdata(1,array1_pc);
+    array2_pc=pushdata(1,array2_pc);
+    array3_pc=pushdata(1,array3_pc);
+    array4_pc=pushdata(1,array4_pc);
+
+    chart(device);
+    timeoutvar=setTimeout(function(e=device){reloaddata(e)},200);
+  }
+  function start_device(dev){
+    clearTimeout(timeoutvar);
+    reloaddata(dev);
+    device_id=dev;
+  }
+  function start_device_with_type(dev,ty){
+
+    select_data(ty);
+        if(dev==1){
+    minmax(array1);
+    // console.log(arr_minmax);
+    // console.log(total);
+    $("#min").html("<h2>"+Math.min.apply(Math, arr_minmax)+"</h2>");
+    $("#mean").html("<h2>"+total/arr_minmax.length+"</h2>");
+    $("#max").html("<h2>"+Math.max.apply(Math, arr_minmax)+"</h2>");
+}
+else if(dev==2){
+    minmax(array2);
+    console.log(arr_minmax);
+    console.log(total);
+    $("#min").html("<h2>"+Math.min.apply(Math, arr_minmax)+"</h2>");
+    $("#mean").html("<h2>"+total/arr_minmax.length+"</h2>");
+    $("#max").html("<h2>"+Math.max.apply(Math, arr_minmax)+"</h2>");
+} else if(dev==3){
+    
+    minmax(array3);
+    console.log(arr_minmax);
+    console.log(total);
+    
+    $("#min").html("<h2>"+Math.min.apply(Math, arr_minmax)+"</h2>");
+    $("#mean").html("<h2>"+total/arr_minmax.length+"</h2>");
+    $("#max").html("<h2>"+Math.max.apply(Math, arr_minmax)+"</h2>");
+} else if(dev==4){
+    
+    minmax(array4);
+    console.log(arr_minmax);
+    console.log(total);
+    $("#min").html("<h2>"+Math.min.apply(Math, arr_minmax)+"</h2>");
+    $("#mean").html("<h2>"+total/arr_minmax.length+"</h2>");
+    $("#max").html("<h2>"+Math.max.apply(Math, arr_minmax)+"</h2>");
+} 
+    clearTimeout(timeoutvar);
+    reloaddata(dev);
+    device_id=dev;
+  }
+  // function add_data(){
+  //   array1=pushdata(10,array1);
+  //   array2=pushdata(10,array2);
+  //   array3=pushdata(10,array3);
+  //   array4=pushdata(10,array4);
+  // }
+  
+  function stop(){
+    clearTimeout(timeoutvar);
+  }function start(){
+    reloaddata(device_id);
+  }
+ $(document).ready(function(){
+    reloaddata();
+ })
+</script>
+</head>
+<body onload="">
+ <nav class="navbar navbar-dark bg-dark">
+  <!-- Navbar content -->
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" onclick="start_device(0)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      All
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item cursor" onclick="start_device_with_type(0,1)">Temp</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(0,2)">Hum</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(0,3)">AQ</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(0,4)">PC</a>
+      
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" onclick="start_device(1)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Lopy1
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item cursor" onclick="start_device_with_type(1,1)">Temp</a>
+      <a class="dropdown-item cursor" onclick="start_device_with_type(1,2)">Hum</a>
+      <a class="dropdown-item cursor" onclick="start_device_with_type(1,3)">AQ</a>
+      <a class="dropdown-item cursor" onclick="start_device_with_type(1,4)">PC</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" onclick="start_device(2)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Lopy2
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item cursor" onclick="start_device_with_type(2,1)">Temp</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(2,2)">Hum</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(2,3)">AQ</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(2,4)">PC</a>
+      </div>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" onclick="start_device(3)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Lopy3
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item cursor" onclick="start_device_with_type(3,1)">Temp</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(3,2)">Hum</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(3,3)">AQ</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(3,4)">PC</a>
+      </div>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" onclick="start_device(4)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Lopy4
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item cursor" onclick="start_device_with_type(4,1)">Temp</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(4,2)">Hum</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(4,3)">AQ</a>
+        <a class="dropdown-item cursor" onclick="start_device_with_type(4,4)">PC</a>
+       </div>
+  </div>
+ </nav>
+ <div id="chartContainer" onmouseenter="stop()" onmouseleave="start()"style="height: 370px; width: 100%;"></div>
+ <div class="row">
+    <div class="card text-white bg-dark mb-3 col-md-4">
+        <div class="card-body ">
+          <h5 class="card-title">Minim</h5>
+          <p class="card-text"><div id="min"></div></p>
+        </div>
+      </div>
+      <div class="card text-white bg-dark mb-3 col-md-4">
+        <div class="card-body">
+          <h5 class="card-title">Minim</h5>
+          <p class="card-text"><div id="max"></div></p>
+        </div>
+      </div>
+      <div class="card text-white bg-dark mb-3 col-md-4">
+        <div class="card-body">
+          <h5 class="card-title">Medie</h5>
+          <p class="card-text"><div id="mean"></div></p>
+        </div>
+      </div>
+ 
+</div>
+</body>
+</html>

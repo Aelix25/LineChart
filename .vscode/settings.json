@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.ChromeDebuggingAttachment": false,
+    "liveServer.settings.useWebExt": false,
+    "liveServer.settings.ignoreFiles": [
+        ".vscode/**",
+        "**/*.scss",
+        "**/*.sass",
+        "**/*.ts",
+        "**/*.json"
+    ]
+}
